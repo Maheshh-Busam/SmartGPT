@@ -7,13 +7,13 @@ import numpy as np
 
 # Set the page configuration
 st.set_page_config(
-    page_title="Smart Predictions Hub",
+    page_title="Smart GPT",
     page_icon="🔮",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-st.sidebar.title("Smart Predictions Hub")
+st.sidebar.title("Smart GPT")
 
 # Create the navigation menu with hierarchical structure
 option = st.sidebar.selectbox("Choose a section", ("Home", "Predictions"))
@@ -30,12 +30,12 @@ parkinsons_model = pickle.load(open(f'{working_dir}/parkinsons_model.sav', 'rb')
 
 if option == "Home":
     # Title and subtitle
-    st.title("Smart Predictions Hub")
+    st.title("Smart GPT")
     st.subheader("Your one-stop solution for predictive analytics across various domains")
 
     # Introduction section
     st.write("""
-    Welcome to the Smart Predictions Hub! This platform leverages the power of machine learning to provide accurate predictions in a variety of fields. Explore the different categories to get insights and predictions tailored to your needs.
+    Welcome to the Smart GPT! This platform leverages the power of machine learning to provide accurate predictions in a variety of fields. Explore the different categories to get insights and predictions tailored to your needs.
     """)
 
     # Insights about the models
