@@ -16,7 +16,7 @@ st.set_page_config(
 st.sidebar.title("Smart GPT")
 
 # Create the navigation menu with hierarchical structure
-option = st.sidebar.selectbox("Choose a section", ("Home", "Predictions"))
+option = st.sidebar.selectbox("Choose a section", ("Home", "Predictions", "Educational GPT"))
 
 # mentioning the working directory
 working_dir = os.path.dirname(os.path.abspath(__file__))
@@ -391,7 +391,38 @@ elif option == "Predictions":
             "The Alzheimer's Disease Prediction model is currently under development, and we're committed to ensuring its accuracy and effectiveness. Stay tuned for updates and be the first to experience this groundbreaking tool in the fight against Alzheimer's disease."
         )
 
+elif option == "Educational GPT":
 
-
-
+    #Display Some Information
+    st.write(
+        "### Educational GPT (Coming Soon!)\n\n"
+        "#### Welcome to Educational GPT\n"
+        "Educational GPT is your intelligent, interactive assistant designed to enhance your learning experience. Whether you are a student, educator, or lifelong learner, Educational GPT offers personalized, accurate, and insightful responses to your educational queries. Powered by advanced AI technology, our tool is here to support your academic journey, providing information, explanations, and resources on a wide range of topics.\n\n"
         
+        "#### Features\n"
+        "1. **Wide Range of Subjects**: Educational GPT covers various subjects including Mathematics, Science, Literature, History, and more. Ask anything, from simple queries to complex problems, and receive clear, concise answers.\n"
+        "2. **Homework Help**: Stuck on a homework problem? Educational GPT can help you understand the concepts, solve problems step-by-step, and provide explanations to ensure you grasp the material.\n"
+        "3. **Research Assistance**: Need help with your research project? Educational GPT can provide summaries, suggest relevant sources, and offer insights on various topics to support your research work.\n"
+        "4. **Study Tips and Techniques**: Get tips on effective study techniques, time management, and exam preparation to maximize your learning potential.\n"
+        "5. **Interactive Learning**: Engage with Educational GPT through interactive Q&A sessions. Ask follow-up questions, dive deeper into topics, and explore new areas of interest.\n\n"
+        
+        "#### How It Works\n"
+        "- **Ask Your Question**: Simply type your question or prompt related to any educational topic.\n"
+        "- **Receive Instant Responses**: Educational GPT processes your query and provides an accurate, informative response within seconds.\n"
+        "- **Interactive and Adaptive**: Educational GPT learns from your interactions, continuously improving its responses to better meet your needs.\n\n"
+        
+        "#### Benefits\n"
+        "- **Accessible Learning**: Access Educational GPT anytime, anywhere, and get reliable information at your fingertips.\n"
+        "- **Personalized Assistance**: Receive tailored responses that address your specific learning needs and preferences.\n"
+        "- **Enhanced Understanding**: Gain a deeper understanding of complex topics through clear, detailed explanations.\n"
+        "- **Time-Saving**: Quickly find answers and explanations without the need to sift through multiple sources.\n\n"
+        
+        "#### Future Enhancements\n"
+        "We are constantly working to improve Educational GPT by adding new features and expanding its knowledge base. Stay tuned for updates and new capabilities, including:\n"
+        "- **Language Learning Assistance**: Interactive language practice and grammar help.\n"
+        "- **Educational Games and Quizzes**: Fun, engaging ways to test your knowledge and reinforce learning.\n"
+        "- **Virtual Tutoring Sessions**: One-on-one tutoring sessions with expert educators.\n\n"
+        
+        "#### Start Learning with Educational GPT Today!\n"
+        "Unlock the full potential of your educational journey with Educational GPT. Ask your first question now and experience the future of learning."
+    )
