@@ -4,6 +4,7 @@ import pickle
 import streamlit as st
 import pandas as pd
 import numpy as np
+from joblib import load
 
 # Set the page configuration
 st.set_page_config(
@@ -28,6 +29,8 @@ heart_disease_model = pickle.load(open(f'{working_dir}/heart_disease_model.sav',
 
 parkinsons_model = pickle.load(open(f'{working_dir}/parkinsons_model.sav', 'rb'))
 
+lung_cancer_model = pickle.load(open(f'{working_dir}/lung_cancer_model.sav', 'rb'))
+
 if option == "Home":
     # Title and subtitle
     st.title("Smart GPT")
@@ -50,7 +53,7 @@ if option == "Home":
     - **Heart Disease Prediction:** Assesses risk factors to predict heart disease.
     - **Diabetes Prediction:** Uses patient data to predict the likelihood of diabetes.
     - **Parkinson's Disease Prediction:** Identifies early signs of Parkinson's disease.
-    - **Cancer Prediction:** Analyzes medical records to forecast cancer occurrence. - **Currently not available**
+    - **Lung Cancer Prediction:** Analyzes medical records to forecast cancer occurrence. - **Currently not available**
     - **Stroke Prediction:** Predicts the probability of a stroke based on health metrics. - **Currently not available**
     - **Kidney Disease Prediction:** Forecasts kidney disease using various health indicators. - **Currently not available**
     - **Liver Disease Prediction:** Uses liver function test results for disease prediction. - **Currently not available**
@@ -77,9 +80,9 @@ elif option == "Predictions":
     )
 
     with st.sidebar.expander("Disease Prediction"):
-        disease_option = st.selectbox("Choose a disease prediction", ["Select any", "Heart Disease Prediction", "Diabetes Prediction", "Parkinson's Disease Prediction", "Cancer Prediction", "Stroke Prediction", "Kidney Disease Prediction", "Liver Disease Prediction", "Alzheimer's Disease Prediction"])
+        disease_option = st.selectbox("Choose a disease prediction", ["Select any", "Heart Disease Prediction", "Diabetes Prediction", "Parkinson's Disease Prediction", "Lung Cancer Prediction", "Stroke Prediction", "Kidney Disease Prediction", "Liver Disease Prediction", "Alzheimer's Disease Prediction"])
         if disease_option != "Select any":
-            default_message.empty(  )
+            default_message.empty()
     # Other categories can be added similarly as expanders
     with st.sidebar.expander("Financial Prediction"):
         financial_option = st.selectbox("Choose a financial prediction", ["Select any", "Stock Price Prediction", "Credit Card Fraud Detection", "Loan Default Prediction", "Bankruptcy Prediction", "Cryptocurrency Price Prediction"])
@@ -220,6 +223,7 @@ elif option == "Predictions":
                     diab_diagnosis = 'The person is not diabetic'
 
                 st.success(diab_diagnosis)
+                
     elif disease_option == "Parkinson's Disease Prediction":
         st.title("Parkinson's Disease Prediction")
         st.write("**Please fill in all the details to get the prediction.**")
@@ -309,22 +313,77 @@ elif option == "Predictions":
                     parkinsons_diagnosis = "The person does not have Parkinson's disease"
 
                 st.success(parkinsons_diagnosis)
-    elif disease_option == "Cancer Prediction":
-        st.write(
-                "### Cancer Prediction (Coming Soon!)\n\n"
-                "#### Explore the Future of Healthcare\n"
-                "Our upcoming Cancer Prediction model is designed to revolutionize early detection and intervention strategies. By leveraging cutting-edge machine learning algorithms and the latest research in oncology, our model aims to provide accurate predictions for various types of cancer, empowering individuals and healthcare professionals with crucial information for timely treatment and care.\n\n"
-                "#### How It Works\n"
-                "1. **Comprehensive Data Analysis**: Our model analyzes a wide range of factors, including genetic markers, lifestyle habits, and medical history, to identify patterns and indicators of cancer.\n"
-                "2. **Personalized Risk Assessment**: By inputting your relevant details, our model will generate a personalized risk assessment, highlighting your likelihood of developing cancer.\n"
-                "3. **Early Detection**: Early detection is key to successful cancer treatment. Our model can help identify potential risks at an early stage, enabling proactive health management.\n\n"
-                "#### Benefits\n"
-                "- **Early Intervention**: Receive timely alerts and recommendations for preventive measures based on your personalized risk assessment.\n"
-                "- **Improved Outcomes**: Empower yourself with knowledge and take proactive steps to reduce your risk of developing cancer.\n"
-                "- **Healthcare Advancement**: Contribute to ongoing research and advancements in cancer detection and treatment by participating in our predictive modeling.\n\n"
-                "#### Stay Tuned!\n"
-                "The Cancer Prediction model is currently in development, and we're working tirelessly to ensure its accuracy and reliability. Stay tuned for updates and be the first to experience this groundbreaking tool in the fight against cancer."
-            )
+                
+    elif disease_option == "Lung Cancer Prediction":
+        st.title("Lung Cancer Prediction")
+        st.write("**Please fill in all the details to get the prediction. Make sure the values should be as per the example format**")
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            gender_for_lcp = st.text_input('Gender (Ex: male=1, female=0)')
+
+        with col2:
+            age_for_lcp = st.text_input('Age (Ex: 45)')
+
+        with col3:
+            smoking_for_lcp = st.text_input('Smoking (Ex: Yes=2, No=1)')
+
+        with col1:
+            yellow_fingers_for_lcp = st.text_input('Yellow Fingers (Ex: Yes=2, No=1)')
+
+        with col2:
+            anxiety_for_lcp = st.text_input('Anxiety (Ex: Yes=2, No=1)')
+
+        with col3:
+            peer_pressure_for_lcp = st.text_input('Peer Pressure (Ex: Yes=2, No=1)')
+
+        with col1:
+            chronic_disease_for_lcp = st.text_input('Chronic Disease (Ex: Yes=2, No=1)')
+
+        with col2:
+            fatigue_for_lcp = st.text_input('Fatigue (Ex: Yes=2, No=1)')
+
+        with col3:
+            allergy_for_lcp = st.text_input('Allergy (Ex: Yes=2, No=1)')
+
+        with col1:
+            wheezing_for_lcp = st.text_input('Wheezing (Ex: Yes=2, No=1)')
+
+        with col2:
+            alchohol_consumption_for_lcp = st.text_input('Alchohol Consuming (Ex: Yes=2, No=1)')
+
+        with col3:
+            coughing_for_lcp = st.text_input('Coughing (Ex: Yes=2, No=1)')
+
+        with col1:
+            shortness_of_breath_for_lcp = st.text_input('Shortnes of Breath (Ex: Yes=2, No=1)')
+
+        with col2:
+            swallowing_difficulty_for_lcp = st.text_input('Swallowing Difficulty (Ex: Yes=2, No=1)')
+
+        with col3:
+            chest_pain_for_lcp = st.text_input('Chest Pain (Ex: Yes=2, No=1)')
+
+
+        lung_cancer_diagnosis = ''
+
+        if st.button("Lung Cancer's Test Result"):
+            user_input = [gender_for_lcp, age_for_lcp, smoking_for_lcp, yellow_fingers_for_lcp, anxiety_for_lcp, peer_pressure_for_lcp, chronic_disease_for_lcp, fatigue_for_lcp, allergy_for_lcp, wheezing_for_lcp, alchohol_consumption_for_lcp, coughing_for_lcp, shortness_of_breath_for_lcp, swallowing_difficulty_for_lcp, chest_pain_for_lcp]
+
+            if any(x == '' for x in user_input):
+                st.error("Please enter all the details to predict the Lung Cancer..")
+            else:
+                user_input = [float(x) for x in user_input]
+                lung_cancer_prediction = lung_cancer_model.predict([user_input])
+
+                if lung_cancer_prediction[0] == 1:
+                    lung_cancer_diagnosis = "The person is having the Lung Cancer"
+                else:
+                    lung_cancer_diagnosis = "The person does not have Lung Cancer"
+
+                st.success(lung_cancer_diagnosis)
+
     elif disease_option == "Stroke Prediction":
 
         st.write(
